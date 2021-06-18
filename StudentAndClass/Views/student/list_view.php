@@ -126,56 +126,8 @@
                 </div>
             </div>
         </div>
-        
-
-        <!-- button join class -->
-        <div class="modal fade" id="class_list" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="class_listLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" action="./students">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="class_listLabel">Join Class</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">List</label>
-                                <input type="text" class="form-control" name="List">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <!-- button add student to class -->
-        <div class="modal fade" id="student_list" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="student_listLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" action="./students">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="student_listLabel">Add Student</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">List</label>
-                                <input type="text" class="form-control" name="List">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
 
     </div>
     
@@ -207,16 +159,23 @@
                             <td><?= $student->major ?></td>
                             <td><?= $student->age ?></td>
                             <td class="d-flex">    
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#class_list">join class</button>
-                                <a href="./detail-student.php?id=<?= $student->id ?>">
-                                    <button class="btn btn-info">detail</button>
-                                </a>
+                                <form method="POST" action="./JoinClass">
+                                    <input type="hidden" name="studentID" value="<?= $student->id ?>">
+                                    <input type="hidden" name="is_join_class" value="yes">
+                                    <button type="submit" class="btn btn-primary">Join class</button>
+                                </form>
+                                <form method="POST" action="./DetailStudent">
+                                    <input type="hidden" name="studentID" value="<?= $student->id ?>">
+                                    <input type="hidden" name="is_view_detail_student" value="yes">
+                                    <button type="submit" class="btn btn-info">Detail</button>
+                                </form>
+                                
                                 <form method="POST" action="./students">
                                     <input type="hidden" name="studentID" value="<?= $student->id ?>">
                                     <input type="hidden" name="is_delete_student" value="yes">
                                     <button type="submit" class="btn btn-danger">DEL</button>
                                 </form>
-                                <form method="POST" action="./students">
+                                <form method="POST" action="./updateStudents">
                                     <input type="hidden" name="studentID" value="<?= $student->id ?>">
                                     <input type="hidden" name="is_update_student" value="yes">
                                     <button type="submit" class="btn btn-success">FIX</button>
@@ -248,16 +207,22 @@
                             <td><?= $class->name ?></td>
                             <td><?= $class->subject ?></td>
                             <td class="d-flex">
-                                <button class="btn btn-primary "data-bs-toggle="modal" data-bs-target="#student_list">Add Student</button>
-                                <a href="./detail-student.php?id=<?= $student->id ?>">
-                                    <button class="btn btn-info">detail</button>
-                                </a>
+                                <form method="POST" action="./addStudentToClass">
+                                    <input type="hidden" name="classID" value="<?= $class->id ?>">
+                                    <input type="hidden" name="is_add_student" value="yes">
+                                    <button type="submit" class="btn btn-primary">Add Student</button>
+                                </form>
+                                <form method="POST" action="./DetailClass">
+                                    <input type="hidden" name="classID" value="<?= $class->id ?>">
+                                    <input type="hidden" name="is_view_class_detail" value="yes">
+                                    <button type="submit" class="btn btn-info">Detail</button>
+                                </form>
                                 <form method="POST" action="./students">
                                     <input type="hidden" name="classID" value="<?= $class->id ?>">
                                     <input type="hidden" name="is_delete_class" value="yes">
                                     <button type="submit" class="btn btn-danger">DEL</button>
                                 </form>
-                                <form method="POST" action="./updateStudents"> 
+                                <form method="POST" action="./updateClasses"> 
                                     <input type="hidden" name="classID" value="<?= $class->id ?>">
                                     <input type="hidden" name="is_update_class" value="yes">
                                     <button type="submit" class="btn btn-success">FIX</button>

@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     
-    <title>List student!</title>
+    <title>Update Class!</title>
 </head>
 
 
@@ -21,8 +21,8 @@
         
         <form method="POST" action="./students">
             <div class="modal-header">
-                <h5 class="modal-title" id="studentLabel">Update Student</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="studentLabel">Update Class</h5>
+                
             </div>
             <div class="modal-body">
                 <div class="mb-3">
@@ -35,11 +35,13 @@
                 </div>
                 <div class="mb-3">
                     <input type="hidden" name="is_update_class" value="yes">
+                    <input type="hidden" name="classID" value="<?= $class->id ?>">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="./students"><button type="button" class="btn btn-secondary">Close</button></a>
+                
             </div>
         </form>
     </div>

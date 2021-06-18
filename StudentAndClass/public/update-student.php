@@ -10,52 +10,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     
-    <title>Join Class!</title>
+    <title>Update Student!</title>
 </head>
 
 
 
 <body>
     <div class="container mt-5">
+        <!-- Button trigger modal -->
+        
         <form method="POST" action="./students">
             <div class="modal-header">
-                <h5 class="modal-title" id="class_listLabel">Join Class</h5>
+                <h5 class="modal-title" id="studentLabel">Update Student</h5>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Subject</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($class as $classes) {
-                                
-                            ?>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" class="" name="classes[]" value="<?= $classes->id ?>" >
-                                    <?= $classes->id ?>
-                                </th>
-                                <td><?= $classes->name ?></td>
-                                <td><?= $classes->subject ?></td>
-                            </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" value="<?= $student->name ?>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="text" class="form-control" name="age" value="<?= $student->age ?>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Major</label>
+                    <input type="text" class="form-control" name="major" value="<?= $student->major ?>">
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" name="is_update_student" value="yes">
+                    <input type="hidden" name="studentID" value="<?= $student->id ?>">  
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="is_join_class" value="yes">
-                <input type="hidden" name="studentID" value="<?=$studentID?>">
+                <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="./students"><button type="button" class="btn btn-secondary">Close</button></a>
-                <button type="submit" class="btn btn-primary">JOIN</button>
+                
             </div>
         </form>
-        
     </div>
     
     

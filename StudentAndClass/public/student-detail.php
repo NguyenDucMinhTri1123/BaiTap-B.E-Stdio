@@ -7,26 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    
-    <title>Join Class!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Student Details!</title>
 </head>
-
-
-
 <body>
     <div class="container mt-5">
         <form method="POST" action="./students">
             <div class="modal-header">
-                <h5 class="modal-title" id="class_listLabel">Join Class</h5>
+                <h5 class="modal-title" id="class_listLabel">Student Details</h5>
+                
             </div>
+            <div class="modal-body d-flex">
+                <div class="mb-3 d-flex col-4">
+                    <label class="form-label font-weight-bold">Name: </label>
+                    <label class="form-label"><?= $student->name ?></label>
+                </div>
+                <div class="mb-3 d-flex col-4">
+                    <label class="form-label font-weight-bold">Major:</label>
+                    <label class="form-label"><?= $student->major ?></label>
+                   
+                </div>
+                <div class="mb-3 d-flex col-4">
+                    <label class="form-label font-weight-bold">Age:</label>
+                    <label class="form-label"><?= $student->age ?></label>
+                    
+                </div>
+            </div>
+            <h5>Class List</h5>
             <div class="modal-body">
                 <div class="mb-3">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Subject</th>
                             </tr>
@@ -37,7 +51,7 @@
                             ?>
                             <tr>
                                 <th scope="row">
-                                    <input type="checkbox" class="" name="classes[]" value="<?= $classes->id ?>" >
+                                    
                                     <?= $classes->id ?>
                                 </th>
                                 <td><?= $classes->name ?></td>
@@ -48,12 +62,7 @@
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <input type="hidden" name="is_join_class" value="yes">
-                <input type="hidden" name="studentID" value="<?=$studentID?>">
-                <a href="./students"><button type="button" class="btn btn-secondary">Close</button></a>
-                <button type="submit" class="btn btn-primary">JOIN</button>
-            </div>
+            
         </form>
         
     </div>

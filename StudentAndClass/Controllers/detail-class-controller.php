@@ -7,16 +7,14 @@ class ClassDetailController{
         try {
             if(isset($request['is_view_class_detail'])){
                 $classID = $request['classID'];
-                $class = Classes::getOne($classID);
+                $classes = Classes::getOne($classID);
                 $students = Classes::list_student_of_class($classID);
-                if($students==''){
-                    $students = new Student(000,"null","null","null");
-                }
+                
             }else{
                 echo "khong gui duoc du lieu";
-                $class = new Classes(000,"null","null");
+                
             }
-            include_once "../public/class_detail.php";
+            include_once "../Views/class/class_detail.php";
 
         } catch (\Throwable $th) {
             echo $th->getMessage();

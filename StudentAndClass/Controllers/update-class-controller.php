@@ -7,13 +7,13 @@ class UpdateClassController{
         try {
             if(isset($request['is_update_class'])){
                 $classID = $request['classID'];
-                // $result= TotalController::delete_class($classID);
                 $class = Classes::getOne($classID);
+                $list_subject=subject::get_list();
             }else{
                 echo "khong gui duoc du lieu";
-                $class = new Classes(000,"null","null");
+                
             }
-            include_once "../public/update-class.php";
+            include_once "../Views/class/update-class.php";
 
         } catch (\Throwable $th) {
             echo $th->getMessage();

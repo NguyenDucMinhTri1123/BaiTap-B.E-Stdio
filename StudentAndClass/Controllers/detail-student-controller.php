@@ -11,14 +11,12 @@ class StudentDetailController{
                 $student = Student::getOne($studentID);
                 $class = Student::list_class_of_student($studentID);
                 // $list_full= Student::list_class_of_student($studentID);
-                if($class==''){
-                    $class = new Classes(000,"null","null");
-                }
+                
             }else{
                 echo "khong gui duoc du lieu";
-                $class = new Classes(000,"null","null");
+                
             }
-            include_once "../public/student-detail.php";
+            include_once "../Views/student/student-detail.php";
 
         } catch (\Throwable $th) {
             echo $th->getMessage();

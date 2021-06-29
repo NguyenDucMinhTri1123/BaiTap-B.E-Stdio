@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -9,23 +10,48 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="style.css">
     <title>List student!</title>
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <!-- Button trigger modal -->
         <div class="row">
-            <div class="col-6">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#student">
-                Add Student
-                </button>
+        <!-- search student form -->
+            <div class="col-6 ">
+                <form action="./student" class="float-end position-relative form-control" method="POST">
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="<?=$key_student?>" placeholder="Enter your search keywords" name="search_key_student">
+                            <input type="hidden" value="<?=$key_class?>" name="search_key_class">
+                        </div>
+                        <!-- <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label> -->
+                        <button type="submit" class="btn btn-warning col-sm-2 ">Search</button>
+                    </div>
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#student">
+                        Add Student
+                    </button>
+                </form>
             </div>
+        <!-- search class form -->
             <div class="col-6">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#class">
-                Add Class
-                </button>
+               
+                <form action="./student" class="float-end position-relative form-control" method="POST">
+                    
+                    <div class="row mb-3">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="<?=$key_class?>" placeholder="Enter your search keywords" name="search_key_class">
+                            <input type="hidden" value="<?=$key_student?>" name="search_key_student">
+                        </div>
+                        <!-- <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label> -->
+                        <button type="submit" class="btn btn-warning col-sm-2 ">Search</button>
+                    </div>
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#class">
+                        Add Class
+                    </button>
+                </form>
             </div>
         </div>
         <!-- form to add a student -->
@@ -45,7 +71,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Major</label>
-                                <input type="text" class="form-control" name="major">
+                                <!-- <input type="text" class="form-control" name="major"> -->
+                                <select name="major_id" class="form-control" >
+                                    <?php foreach($list_major as $major) {?>
+                                        <option value="<?=$major->id?>"><?=$major->name?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">age</label>
@@ -64,7 +95,6 @@
             </div>
         </div>
         <!-- form to add a class -->
-
         <div class="modal fade" id="class" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="classLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -81,7 +111,11 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Subject</label>
-                                <input type="text" class="form-control" name="subject">
+                                <select name="subject_id" class="form-control" >
+                                    <?php foreach($list_subject as $subject) {?>
+                                        <option value="<?=$subject->id?>"><?=$subject->name?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <input type="hidden" class="form-control" name="is_add_new_class" value="yes">
@@ -95,27 +129,50 @@
                 </div>
             </div>
         </div>
-        <!-- form to update class -->
-        <div class="modal fade" id="update_class" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="update_class" aria-hidden="true">
+        <!-- form to add a major -->
+        <div class="modal fade" id="major" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="major" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="POST" action="./students">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="update_class">Update Class</h5>
+                            <h5 class="modal-title" id="major">Add Major</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name_class" value="">
+                                <input type="text" class="form-control" name="name_major" value="">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Subject</label>
-                                <input type="text" class="form-control" name="subject">
+                                <input type="hidden" name="is_add_major" value="yes">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit_class" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- form to add a subject -->
+        <div class="modal fade" id="subject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="subject" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="./students">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="subject">Add Major</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name_subject" value="">
                             </div>
                             <div class="mb-3">
-                                <input type="hidden" name="is_update_class" value="yes">
+                                <input type="hidden" name="is_add_subject" value="yes">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -133,14 +190,22 @@
     
     
 
-    <!-- Optional JavaScript; choose one of the two! -->
+    
 
     <div class="container mt-3">
         <div class="row">
             <!-- list student -->
             <div class="col-6">
-                <h1>List student</h1>
-                <table class="table table-hover">
+                <h4 class="text-danger">
+                    <?php 
+                        if(isset($detele_student_result)){
+                            echo $detele_student_result;
+                            $detele_student_result='';
+                        }
+                    ?>
+                </h4>
+                <h2>List student</h2>
+                <table class="table table-hover pd-fm">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
@@ -156,7 +221,7 @@
                         <tr>
                             <th scope="row"><?= $student->id ?></th>
                             <td><?= $student->name ?></td>
-                            <td><?= $student->major ?></td>
+                            <td><?= $student->major_name ?></td>
                             <td><?= $student->age ?></td>
                             <td class="d-flex">    
                                 <form method="POST" action="./JoinClass">
@@ -169,8 +234,7 @@
                                     <input type="hidden" name="is_view_detail_student" value="yes">
                                     <button type="submit" class="btn btn-info">Detail</button>
                                 </form>
-                                
-                                <form method="POST" action="./students">
+                                <form method="POST" action="./student" onclick="return confirm('Are you sure?');">
                                     <input type="hidden" name="studentID" value="<?= $student->id ?>">
                                     <input type="hidden" name="is_delete_student" value="yes">
                                     <button type="submit" class="btn btn-danger">DEL</button>
@@ -187,10 +251,19 @@
                     </tbody>
                 </table>
             </div>
+            
             <!-- list class -->
             <div class="col-6">
-                <h1>List Class</h1>
-                <table class="table table-hover">
+                <h4 class="text-danger">
+                    <?php 
+                        if(isset($delete_class_result)){
+                            echo $delete_class_result;
+                            $delete_class_result='';
+                        }
+                    ?>
+                </h4>
+                <h2>List Class</h2>
+                <table class="table table-hover ">
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
@@ -205,7 +278,7 @@
                         <tr>
                             <th scope="row"><?= $class->id ?></th>
                             <td><?= $class->name ?></td>
-                            <td><?= $class->subject ?></td>
+                            <td><?= $class->subject_name ?></td>
                             <td class="d-flex">
                                 <form method="POST" action="./addStudentToClass">
                                     <input type="hidden" name="classID" value="<?= $class->id ?>">
@@ -217,13 +290,108 @@
                                     <input type="hidden" name="is_view_class_detail" value="yes">
                                     <button type="submit" class="btn btn-info">Detail</button>
                                 </form>
-                                <form method="POST" action="./students">
+                                <form method="POST" action="./student" onclick="return confirm('Are you sure?');">
                                     <input type="hidden" name="classID" value="<?= $class->id ?>">
                                     <input type="hidden" name="is_delete_class" value="yes">
                                     <button type="submit" class="btn btn-danger">DEL</button>
                                 </form>
                                 <form method="POST" action="./updateClasses"> 
                                     <input type="hidden" name="classID" value="<?= $class->id ?>">
+                                    <input type="hidden" name="is_update_class" value="yes">
+                                    <button type="submit" class="btn btn-success">FIX</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- list major -->
+            <div class="col-6">
+                
+                <h2>List Major</h2>
+                <h4 class="text-danger">
+                    <?php 
+                        if(isset($delete_major_result)){
+                            echo $delete_major_result;
+                            $delete_major_result='';
+                        }
+                    ?>
+                </h4>
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#major">
+                    Add Major
+                </button>
+                <table class="table table-hover ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($list_major as $major) {
+                        ?>
+                        <tr>
+                            <th scope="row"><?= $major->id ?></th>
+                            <td><?= $major->name ?></td>
+                            <td class="d-flex">
+                                
+                                <form method="POST" action="./student" onclick="return confirm('Are you sure?');">
+                                    <input type="hidden" name="majorID" value="<?= $major->id ?>">
+                                    <input type="hidden" name="is_delete_major" value="yes">
+                                    <button type="submit" class="btn btn-danger">DEL</button>
+                                </form>
+                                <form method="POST" action="./updateClasses"> 
+                                    <input type="hidden" name="classID" value="<?= $major->id ?>">
+                                    <input type="hidden" name="is_update_major" value="yes">
+                                    <button type="submit" class="btn btn-success">FIX</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- list subject -->
+            <div class="col-6">
+                
+                <h2>List Subject</h2>
+                <h4 class="text-danger">
+                    <?php 
+                        if(isset($delete_subject_result)){
+                            echo $delete_subject_result;
+                            $delete_subject_result='';
+                        }
+                    ?>
+                </h4>
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subject">
+                    Add Subject
+                </button>
+                <table class="table table-hover ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($list_subject as $subject) {
+                        ?>
+                        <tr>
+                            <th scope="row"><?= $subject->id ?></th>
+                            <td><?= $subject->name ?></td>
+                            <td class="d-flex">
+                                <form method="POST" action="./student" onclick="return confirm('Are you sure?');">
+                                    <input type="hidden" name="subjectID" value="<?= $subject->id ?>">
+                                    <input type="hidden" name="is_delete_subject" value="yes">
+                                    <button type="submit" class="btn btn-danger">DEL</button>
+                                </form>
+                                <form method="POST" action="./updateClasses"> 
+                                    <input type="hidden" name="classID" value="<?= $major->id ?>">
                                     <input type="hidden" name="is_update_class" value="yes">
                                     <button type="submit" class="btn btn-success">FIX</button>
                                 </form>

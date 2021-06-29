@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $url = isset($_GET['url']) ? $_GET['url'] : "";
 $method = $_SERVER['REQUEST_METHOD'];
 include_once "../Controllers/TotalController.php";
@@ -9,6 +9,7 @@ include_once "../Controllers/join-class-controller.php";
 include_once "../Controllers/detail-student-controller.php";
 include_once "../Controllers/add-student-to-class-controller.php";
 include_once "../Controllers/detail-class-controller.php";
+include_once "../Controllers/student-controller.php";
 switch ($url) {
     
     case 'students':
@@ -21,7 +22,26 @@ switch ($url) {
                 TotalController::check($_REQUEST);
                 return;
         }
-    
+    case 'student':
+        # code...
+        switch ($method) {
+            case 'GET':
+                TotalController::index();
+                return;
+            case 'POST':
+                TotalController::indexx($_REQUEST);
+                return;
+        }
+    case 'admin':
+        # code...
+        switch ($method) {
+            case 'GET':
+                StudentController::index();
+                return;
+            case 'POST':
+                StudentController::index();
+                return;
+        }
     case 'updateStudents':
         # code...
         switch ($method) {

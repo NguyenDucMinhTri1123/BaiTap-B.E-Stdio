@@ -12,9 +12,8 @@ class AddStudentToClassController{
                 // $list_full= Student::list_class_of_student($studentID);
             }else{
                 echo "khong gui duoc du lieu";
-                $class = new Classes(000,"null","null");
             }
-            include_once "../public/add-student-to-class.php";
+            include_once "../Views/class/add-student-to-class.php";
 
         } catch (\Throwable $th) {
             echo $th->getMessage();

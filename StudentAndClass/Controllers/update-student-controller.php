@@ -7,13 +7,13 @@ class UpdateStudentController{
         try {
             if(isset($request['is_update_student'])){
                 $studentID = $request['studentID'];
-                
+                $list_major= major::get_list();
                 $student = Student::getOne($studentID);
             }else{
                 echo "khong gui duoc du lieu";
-                $student = new Student(000,"null","null","null");
+                
             }
-            include_once "../public/update-student.php";
+            include_once "../Views/student/update-student.php";
 
         } catch (\Throwable $th) {
             echo $th->getMessage();
